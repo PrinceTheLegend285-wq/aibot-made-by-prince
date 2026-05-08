@@ -12,6 +12,8 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+print("SUPABASE URL =", SUPABASE_URL)
+print("SUPABASE KEY =", SUPABASE_KEY)
 
 supabase = create_client(
     SUPABASE_URL,
