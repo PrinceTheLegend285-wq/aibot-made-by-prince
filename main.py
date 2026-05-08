@@ -11,20 +11,18 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# Temporary Memory
+user_memory = {}
+
 def ask_ai(user_id, prompt):
 
-    # Save user message
-    supabase.table("memory").insert({
-        "user_id": str(user_id),
+    if user_id not in user_memory:
+        user_memory[user_id] = []
+
+    user_memory[user_id].append({
         "role": "user",
         "content": prompt
-    }).execute()
-
-    # Load old messages
-    old_messages = supabase.table("memory") \
-        .select("*") \
-        .eq("user_id", str(user_id)) \
-        .execute()
+    })
 
     messages = [
         {
@@ -46,12 +44,7 @@ Rules:
         }
     ]
 
-    # Add memory
-    for msg in old_messages.data[-10:]:
-        messages.append({
-            "role": msg["role"],
-            "content": msg["content"]
-        })
+    messages.extend(user_memory[user_id][-10:])
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -73,12 +66,10 @@ Rules:
 
     reply = result["choices"][0]["message"]["content"]
 
-    # Save AI reply
-    supabase.table("memory").insert({
-        "user_id": str(user_id),
+    user_memory[user_id].append({
         "role": "assistant",
         "content": reply
-    }).execute()
+    })
 
     return reply
 
@@ -117,6 +108,7 @@ def ai_chat(message):
     bot.send_chat_action(message.chat.id, "typing")
 
     try:
+
         reply = ask_ai(
             message.from_user.id,
             message.text
@@ -140,4 +132,7 @@ Thread(target=run).start()
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+    app.run(
+        host="0.0.0.0",
+        port=port
+    )
