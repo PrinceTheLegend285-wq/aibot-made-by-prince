@@ -79,7 +79,7 @@ Rules:
 
     reply = result["choices"][0]["message"]["content"]
 
-    supabase.table("memory").insert({
+    supabase.table(memory).insert({
         "user_id": str(user_id),
         "role": "assistant",
         "content": reply
