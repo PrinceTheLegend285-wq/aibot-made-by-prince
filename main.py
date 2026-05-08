@@ -94,13 +94,19 @@ def start(message):
 
 📝 Just send your question and let the AI handle the rest!
 
-⚡ Powered by 𝗣𝗿𝗶𝗻𝗰𝗲 𝗧𝗵𝗲 𝗟𝗲𝗴𝗲𝗻𝗱
+⚡ Powered by [𝗣𝗿𝗶𝗻𝗰𝗲 𝗧𝗵𝗲 𝗟𝗲𝗴𝗲𝗻𝗱](https://t.me/PrinceTheLegendBot)
+
 🔥 Fast • Smart • Reliable
 
 Enjoy your experience ❤️
 """
 
-    bot.reply_to(message, welcome_text)
+    bot.reply_to(
+        message,
+        welcome_text,
+        parse_mode="Markdown",
+        disable_web_page_preview=True
+    )
 
 @bot.message_handler(func=lambda m: True)
 def ai_chat(message):
