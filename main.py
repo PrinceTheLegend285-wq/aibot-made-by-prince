@@ -94,7 +94,7 @@ def start(message):
 
 📝 Just send your question and let the AI handle the rest!
 
-⚡ Powered by Prince
+⚡ Powered by 𝗣𝗿𝗶𝗻𝗰𝗲 𝗧𝗵𝗲 𝗟𝗲𝗴𝗲𝗻𝗱
 🔥 Fast • Smart • Reliable
 
 Enjoy your experience ❤️
