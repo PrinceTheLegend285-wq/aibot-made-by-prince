@@ -22,13 +22,13 @@ API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 def ask_ai(user_id, prompt):
 
-    supabase.table("memory").insert({
+    supabase.table(memory).insert({
         "user_id": str(user_id),
         "role": "user",
         "content": prompt
     }).execute()
 
-    old_messages = supabase.table(memory) \
+    old_messages = supabase.table("memory") \
         .select("*") \
         .eq("user_id", str(user_id)) \
         .execute()
