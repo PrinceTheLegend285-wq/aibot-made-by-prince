@@ -28,7 +28,7 @@ def ask_ai(user_id, prompt):
         "content": prompt
     }).execute()
 
-    old_messages = supabase.table("memory") \
+    old_messages = supabase.table(memory) \
         .select("*") \
         .eq("user_id", str(user_id)) \
         .execute()
