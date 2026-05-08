@@ -22,12 +22,14 @@ API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 def ask_ai(user_id, prompt):
 
+    # Save user message
     supabase.table("memory").insert({
         "user_id": str(user_id),
         "role": "user",
         "content": prompt
     }).execute()
 
+    # Load old messages
     old_messages = supabase.table("memory") \
         .select("*") \
         .eq("user_id", str(user_id)) \
@@ -53,6 +55,7 @@ Rules:
         }
     ]
 
+    # Add memory
     for msg in old_messages.data[-10:]:
         messages.append({
             "role": msg["role"],
@@ -79,7 +82,8 @@ Rules:
 
     reply = result["choices"][0]["message"]["content"]
 
-    supabase.table(memory).insert({
+    # Save AI reply
+    supabase.table("memory").insert({
         "user_id": str(user_id),
         "role": "assistant",
         "content": reply
@@ -89,17 +93,44 @@ Rules:
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(
-        message,
-        "🤖 Prince Legend AI Online!\n\nSend me any message."
-    )
+
+    first_name = message.from_user.first_name or ""
+    last_name = message.from_user.last_name or ""
+
+    welcome_text = f"""
+👋 Hello {first_name} {last_name}!
+
+🤖 Welcome to 𖤍 ᴘʀɪɴᴄᴇ ʟᴇɢᴇɴᴅ ᴀɪ 𖤍 🚀
+
+✨ What can I do?
+• AI Chat & Instant Answers 💬
+• Study & Homework Help 📚
+• Coding Assistance 💻
+• Creative Ideas 🎨
+• Fast & Smart Replies ⚡
+• And much more...
+
+📝 Just send your question and let the AI handle the rest!
+
+⚡ Powered by Prince
+🔥 Fast • Smart • Reliable
+
+Enjoy your experience ❤️
+"""
+
+    bot.reply_to(message, welcome_text)
 
 @bot.message_handler(func=lambda m: True)
 def ai_chat(message):
+
     bot.send_chat_action(message.chat.id, "typing")
 
     try:
-        reply = ask_ai(message.from_user.id, message.text)
+        reply = ask_ai(
+            message.from_user.id,
+            message.text
+        )
+
         bot.reply_to(message, reply)
 
     except Exception as e:
