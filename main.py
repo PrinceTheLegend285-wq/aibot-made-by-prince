@@ -99,7 +99,7 @@ def ai_chat(message):
     bot.send_chat_action(message.chat.id, "typing")
 
     try:
-        reply = ask_ai(message.text)
+        reply = ask_ai(message.from_user.id, message.text)
         bot.reply_to(message, reply)
 
     except Exception as e:
