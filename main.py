@@ -1,7 +1,6 @@
 import os
 import requests
 import telebot
-from supabase import create_client
 from flask import Flask
 from threading import Thread
 
