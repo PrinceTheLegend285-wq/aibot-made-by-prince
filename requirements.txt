@@ -2,5 +2,4 @@ pyTelegramBotAPI
 requests
 flask
 gunicorn
-supabase==2.4.0
-postgrest==0.16.8
+supabase
