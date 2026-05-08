@@ -9,16 +9,6 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-print("SUPABASE URL =", SUPABASE_URL)
-print("SUPABASE KEY =", SUPABASE_KEY)
-
-supabase = create_client(
-    SUPABASE_URL,
-    SUPABASE_KEY
-)
-
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 def ask_ai(user_id, prompt):
