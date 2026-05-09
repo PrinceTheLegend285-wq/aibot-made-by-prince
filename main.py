@@ -6,23 +6,30 @@ from threading import Thread
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+MEMORY_API = os.getenv("MEMORY_API")
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-# Temporary Memory
-user_memory = {}
-
 def ask_ai(user_id, prompt):
 
-    if user_id not in user_memory:
-        user_memory[user_id] = []
+    # Save user message
+    requests.post(
+        f"{MEMORY_API}/save",
+        json={
+            "user_id": str(user_id),
+            "role": "user",
+            "content": prompt
+        }
+    )
 
-    user_memory[user_id].append({
-        "role": "user",
-        "content": prompt
-    })
+    # Get old memory
+    memory_response = requests.get(
+        f"{MEMORY_API}/memory/{user_id}"
+    )
+
+    old_messages = memory_response.json()
 
     messages = [
         {
@@ -44,7 +51,7 @@ Rules:
         }
     ]
 
-    messages.extend(user_memory[user_id][-10:])
+    messages.extend(old_messages[-10:])
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -66,10 +73,15 @@ Rules:
 
     reply = result["choices"][0]["message"]["content"]
 
-    user_memory[user_id].append({
-        "role": "assistant",
-        "content": reply
-    })
+    # Save AI reply
+    requests.post(
+        f"{MEMORY_API}/save",
+        json={
+            "user_id": str(user_id),
+            "role": "assistant",
+            "content": reply
+        }
+    )
 
     return reply
 
@@ -129,7 +141,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bot Running"
+    return "Bot Running 😎"
 
 def run():
     bot.infinity_polling()
