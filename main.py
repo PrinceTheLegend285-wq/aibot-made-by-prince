@@ -3,6 +3,7 @@ import requests
 import telebot
 from flask import Flask
 from threading import Thread
+from urllib.parse import quote
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -12,6 +13,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# AI Chat Function
 def ask_ai(user_id, prompt):
 
     # Save user message
@@ -85,6 +87,7 @@ Rules:
 
     return reply
 
+# START COMMAND
 @bot.message_handler(commands=['start'])
 def start(message):
 
@@ -101,6 +104,7 @@ def start(message):
 • Study & Homework Help 📚
 • Coding Assistance 💻
 • Creative Ideas 🎨
+• AI Image Generation 🎨
 • Fast & Smart Replies ⚡
 • And much more...
 
@@ -120,6 +124,47 @@ Enjoy your experience ❤️
         disable_web_page_preview=True
     )
 
+# IMAGINE COMMAND
+@bot.message_handler(commands=['imagine'])
+def imagine(message):
+
+    try:
+
+        prompt = message.text.replace("/imagine", "").strip()
+
+        if not prompt:
+
+            bot.reply_to(
+                message,
+                "❌ Example:\n/imagine anime boy with blue fire"
+            )
+
+            return
+
+        bot.reply_to(
+            message,
+            "🎨 Generating image..."
+        )
+
+        image_url = (
+            f"https://image.pollinations.ai/prompt/"
+            f"{quote(prompt)}"
+        )
+
+        bot.send_photo(
+            message.chat.id,
+            image_url,
+            caption=f"🖼 Prompt: {prompt}"
+        )
+
+    except Exception as e:
+
+        bot.reply_to(
+            message,
+            f"Error: {e}"
+        )
+
+# NORMAL AI CHAT
 @bot.message_handler(func=lambda m: True)
 def ai_chat(message):
 
@@ -135,8 +180,13 @@ def ai_chat(message):
         bot.reply_to(message, reply)
 
     except Exception as e:
-        bot.reply_to(message, f"Error: {e}")
 
+        bot.reply_to(
+            message,
+            f"Error: {e}"
+        )
+
+# WEB SERVER
 app = Flask(__name__)
 
 @app.route('/')
@@ -149,7 +199,11 @@ def run():
 Thread(target=run).start()
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
+
+    port = int(
+        os.environ.get("PORT", 8080)
+    )
+
     app.run(
         host="0.0.0.0",
         port=port
