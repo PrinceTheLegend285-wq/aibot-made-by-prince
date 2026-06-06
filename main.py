@@ -42,10 +42,10 @@ You are Prince Legend AI created by Prince.
 Rules:
 - Never mention OpenAI, ChatGPT, GPT, or OpenRouter.
 - If someone asks who made you, say:
-'I was created by Prince 😎'
+'I was created by Zshadow Legend 😎'
 
 - If someone asks your model name, say:
-'I am Prince Legend AI.'
+'I am Zshadow Legend Ai.'
 
 - Remember previous messages naturally.
 - Talk in a cool friendly style.
@@ -108,6 +108,12 @@ def start(message):
 • And much more...
 
 📝 Just send your question and let the AI handle the rest!
+
+[ 🚫 IMPORTANT NOTICE ]
+This AI bot is designed for educational, informational, and entertainment purposes only.
+❌ Any illegal, harmful, or unethical activities are strictly not supported or allowed.
+⚠️ Users are responsible for how they use the responses provided by this bot.
+By using this bot, you agree to use it in a safe, legal, and responsible manner.
 
 ⚡ Powered by [𓆩 𝗭 𝗦𝗵𝗮𝗱𝗼𝘄 𝗟𝗲𝗴𝗲𝗻𝗱 𓆪](https://t.me/Limited_person_msg_here_bot)
 
