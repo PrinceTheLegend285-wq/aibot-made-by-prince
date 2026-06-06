@@ -129,7 +129,7 @@ def start(message):
         )
         return
 
-    # WELCOME MESSAGE
+    # YOUR ORIGINAL WELCOME MESSAGE (NO CHANGE)
     first_name = message.from_user.first_name or ""
     last_name = message.from_user.last_name or ""
 
@@ -154,14 +154,14 @@ This AI bot is designed for educational, informational, and entertainment purpos
 ⚠️ Users are responsible for how they use the responses provided by this bot.
 By using this bot, you agree to use it in a safe, legal, and responsible manner.
 
-⚡ Powered by 𓆩 Z Shadow Legend 𓆪
+⚡ Powered by [𓆩 Z Shadow Legend 𓆪](https://t.me/Limited_person_msg_here_bot)
 
 🔥 Fast • Smart • Reliable
 
 Enjoy your experience ❤️
 """
 
-    bot.reply_to(message, welcome_text)
+    bot.reply_to(message, welcome_text, parse_mode="Markdown")
 
 
 # ---------------- CHECK JOIN CALLBACK ----------------
@@ -175,14 +175,48 @@ def check_join(call):
         bot.answer_callback_query(call.id, "Join All Channels To Use This Bot👿", show_alert=True)
 
 
-# ---------------- CHAT ----------------
+# ---------------- CHAT (FORCE JOIN EVEN AFTER LEAVE) ----------------
 @bot.message_handler(func=lambda m: True)
 def ai_chat(message):
+
+    user_id = message.from_user.id
+
+    if not check_user_joined(user_id):
+
+        markup = telebot.types.InlineKeyboardMarkup()
+
+        markup.add(
+            telebot.types.InlineKeyboardButton(
+                "📢 Join Channel 1",
+                url="https://t.me/ZShadowBots"
+            )
+        )
+
+        markup.add(
+            telebot.types.InlineKeyboardButton(
+                "📢 Join Channel 2",
+                url="https://t.me/ZShadowBots_Backup"
+            )
+        )
+
+        markup.add(
+            telebot.types.InlineKeyboardButton(
+                "✅ I Have Joined",
+                callback_data="check_join"
+            )
+        )
+
+        bot.send_message(
+            message.chat.id,
+            "⚠️ You must join the required channels before using this bot 👇",
+            reply_markup=markup
+        )
+        return
 
     bot.send_chat_action(message.chat.id, "typing")
 
     try:
-        reply = ask_ai(message.from_user.id, message.text)
+        reply = ask_ai(user_id, message.text)
         bot.reply_to(message, reply)
 
     except Exception as e:
