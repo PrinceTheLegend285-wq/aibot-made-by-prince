@@ -136,7 +136,7 @@ def start(message):
     welcome_text = f"""
 👋 Hello {first_name} {last_name}!
 
-🤖 Welcome to Z Shadow Legend AI 😎
+🤖 Welcome to 𖤍 ᴢ ꜱʜᴀᴅᴏᴡ ʟᴇɢᴇɴᴅ ᴀɪ 𖤍 😎
 
 ✨ What can I do?
 • AI Chat & Instant Answers 💬
@@ -144,12 +144,21 @@ def start(message):
 • Coding Assistance 💻
 • Creative Ideas 🎨
 • Fast & Smart Replies ⚡
+• And much more...
 
-📝 Just send your question and I will respond!
+📝 Just send your question and let the AI handle the rest!
 
-⚠️ This bot is for educational and safe use only.
+[ 🚫 IMPORTANT NOTICE ]
+This AI bot is designed for educational, informational, and entertainment purposes only.
+❌ Any illegal, harmful, or unethical activities are strictly not supported or allowed.
+⚠️ Users are responsible for how they use the responses provided by this bot.
+By using this bot, you agree to use it in a safe, legal, and responsible manner.
 
-🔥 Powered by ZShadow Legend
+⚡ Powered by [𓆩 Z Shadow Legend 𓆪](https://t.me/Limited_person_msg_here_bot)
+
+🔥 Fast • Smart • Reliable
+
+Enjoy your experience ❤️
 """
 
     bot.reply_to(message, welcome_text)
@@ -160,10 +169,10 @@ def start(message):
 def check_join(call):
 
     if check_user_joined(call.from_user.id):
-        bot.answer_callback_query(call.id, "Verified ✅")
+        bot.answer_callback_query(call.id, "You Are Verfied To Use This Bot✅")
         bot.send_message(call.message.chat.id, "🎉 Access granted! You can now use the bot 😎")
     else:
-        bot.answer_callback_query(call.id, "You have not joined yet ❌", show_alert=True)
+        bot.answer_callback_query(call.id, "Join All Channels To Use This Bot👿", show_alert=True)
 
 
 # ---------------- CHAT ----------------
