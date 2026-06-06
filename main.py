@@ -154,7 +154,7 @@ This AI bot is designed for educational, informational, and entertainment purpos
 ⚠️ Users are responsible for how they use the responses provided by this bot.
 By using this bot, you agree to use it in a safe, legal, and responsible manner.
 
-⚡ Powered by [𓆩 Z Shadow Legend 𓆪](https://t.me/Limited_person_msg_here_bot)
+⚡ Powered by 𓆩 Z Shadow Legend 𓆪
 
 🔥 Fast • Smart • Reliable
 
