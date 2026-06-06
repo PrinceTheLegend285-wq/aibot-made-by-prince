@@ -97,20 +97,19 @@ def start(message):
     welcome_text = f"""
 👋 Hello {first_name} {last_name}!
 
-🤖 Welcome to 𖤍 ᴘʀɪɴᴄᴇ ʟᴇɢᴇɴᴅ ᴀɪ 𖤍 🚀
+🤖 Welcome to 𖤍 ᴢ ꜱʜᴀᴅᴏᴡ ʟᴇɢᴇɴᴅ ᴀɪ 𖤍 😎
 
 ✨ What can I do?
 • AI Chat & Instant Answers 💬
 • Study & Homework Help 📚
 • Coding Assistance 💻
 • Creative Ideas 🎨
-• AI Image Generation 🎨
 • Fast & Smart Replies ⚡
 • And much more...
 
 📝 Just send your question and let the AI handle the rest!
 
-⚡ Powered by [𝗣𝗿𝗶𝗻𝗰𝗲 𝗧𝗵𝗲 𝗟𝗲𝗴𝗲𝗻𝗱](https://t.me/PrinceTheLegendBot)
+⚡ Powered by [𓆩 𝗭 𝗦𝗵𝗮𝗱𝗼𝘄 𝗟𝗲𝗴𝗲𝗻𝗱 𓆪](https://t.me/Limited_person_msg_here_bot)
 
 🔥 Fast • Smart • Reliable
 
